@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Columnas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Gestión de Columnas</h1>
+
+  <h2>Agregar Columna</h2>
+  <form action="/agregar-columna" method="POST">
+    <label for="columna-agregar">Nombre de la nueva columna:</label>
+    <input type="text" id="columna-agregar" name="columna" required placeholder="Ejemplo: nueva_columna">
+
+    <label for="tipo-dato">Tipo de dato:</label>
+    <select id="tipo-dato" name="tipo" required>
+      <option value="INT">Entero (INT)</option>
+      <option value="VARCHAR(255)">Texto (VARCHAR)</option>
+      <option value="DATE">Fecha (DATE)</option>
+      <option value="BOOLEAN">Booleano (BOOLEAN)</option>
+    </select>
+
+    <button type="submit">Agregar Columna</button>
+  </form>
+
+
+  <h2>Editar Columna</h2>
+  <form action="/editar-columna" method="POST">
+    <label for="columna-editar">Nombre de la columna a editar:</label>
+    <input type="text" id="columna-editar" name="columna_actual" required placeholder="Ejemplo: nombre_columna">
+
+    <label for="nuevo-nombre">Nuevo nombre de la columna:</label>
+    <input type="text" id="nuevo-nombre" name="nuevo_nombre" required placeholder="Ejemplo: columna_actualizada">
+
+    <label for="nuevo-tipo">Nuevo tipo de dato:</label>
+    <select id="nuevo-tipo" name="nuevo_tipo" required>
+      <option value="INT">Entero (INT)</option>
+      <option value="VARCHAR(255)">Texto (VARCHAR)</option>
+      <option value="DATE">Fecha (DATE)</option>
+      <option value="BOOLEAN">Booleano (BOOLEAN)</option>
+    </select>
+
+    <button type="submit">Editar Columna</button>
+  </form>
+
+<h2>Eliminar Columna</h2>
+<form action="/eliminar-columna" method="POST">
+  <label for="columna-eliminar">Nombre de la columna a eliminar:</label>
+  <input type="text" id="columna-eliminar" name="columna" required placeholder="Ejemplo: nombre_columna">
+  <button type="submit">Eliminar Columna</button>
+</form>
+  <button onclick="window.location.href='/'">Volver al inicio</button>
+</body>
+</html>
