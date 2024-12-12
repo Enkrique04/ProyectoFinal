@@ -1,0 +1,69 @@
+
+//Nota importante, Yo cambien lo de "connection" por "db"
+app.post('/eliminar-columna', (req, res) => {
+  const { columna } = req.body;
+
+  if (!columna) {
+    return res.status(400).send('Por favor proporciona un nombre de columna válido.');
+  }
+
+  const query = `ALTER TABLE equipos DROP COLUMN ??`;
+
+  db.query(query, [columna], (err, result) => {
+    if (err) {
+      console.error('Error eliminando la columna:', err);
+      return res.status(500).send('Hubo un error eliminando la columna.');
+    }
+
+    const html = `
+      <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <h1>La columna "${columna}" ha sido eliminada con éxito.</h1>
+        <button onclick="window.location.href='/'">Volver</button>
+      </body>
+      </html>
+    `;
+    res.send(html);
+  });
+});
+
+app.post('/agregar-columna', (req, res) => {
+  const { columna, tipo } = req.body;
+
+  if (!columna || !tipo) {
+    return res.status(400).send('Proporcione un nombre y un tipo de dato válidos para la nueva columna.');
+  }
+
+  const query = `ALTER TABLE equipos ADD COLUMN ?? ${tipo}`;
+  db.query(query, [columna], (err, result) => {
+    if (err) {
+      console.error('Error al agregar la columna:', err);
+      return res.status(500).send('Hubo un error al agregar la columna.');
+    }
+
+    res.send(`<h1>La columna "${columna}" ha sido agregada con éxito.</h1><button onclick="window.location.href='/'">Volver</button>`);
+  });
+});
+
+
+app.post('/editar-columna', (req, res) => {
+  const { columna_actual, nuevo_nombre, nuevo_tipo } = req.body;
+
+  if (!columna_actual || !nuevo_nombre || !nuevo_tipo) {
+    return res.status(400).send('Proporcione el nombre actual, el nuevo nombre y el nuevo tipo de dato.');
+  }
+
+  const query = `ALTER TABLE equipos CHANGE COLUMN ?? ?? ${nuevo_tipo}`;
+  db.query(query, [columna_actual, nuevo_nombre], (err, result) => {
+    if (err) {
+      console.error('Error al editar la columna:', err);
+      return res.status(500).send('Hubo un error al editar la columna.');
+    }
+
+    res.send(`<h1>La columna "${columna_actual}" ha sido renombrada a "${nuevo_nombre}" y su tipo ha sido actualizado.</h1><button onclick="window.location.href='/'">Volver</button>`);
+  });
+});
+
