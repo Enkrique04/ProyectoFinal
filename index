@@ -1,0 +1,3 @@
+PARTE DEL NAVBAR PARA AGREGAR EL ACCESO DIRECTO
+
+ menu.innerHTML += '<li><a href="/editar-columnas.html">Columnas</a></li>';
